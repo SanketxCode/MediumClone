@@ -1,29 +1,16 @@
 import { Hono } from "hono";
 
-const app = new Hono();
-// route to signup a user
-app.post("/api/v1/signup", (c) => {
-  return c.text("Hello Hono!");
-});
+import { userRouter } from "./routes/user";
+import { blogRouter } from "./routes/blog";
+const app = new Hono<{
+  Bindings: {
+    DATABASE_URL: string;
+    SECRET: string;
+  };
+}>();
 
-// rouote to signin user
-app.post("/api/v1/signin", (c) => {
-  return c.text("Hello Hono!");
-});
-
-//route to post a blog
-app.post("/api/v1/blog", (c) => {
-  return c.text("Hello Hono!");
-});
-
-//route to edit a blog
-app.put("/api/v1/blog", (c) => {
-  return c.text("Hello Hono!");
-});
-
-// route to get a specific blog by id
-app.get("/api/v1/blog/:id", (c) => {
-  return c.text("Hello Hono!");
-});
+app.route("/api/v1/user",userRouter);
+app.route("/api/v1/blog",blogRouter);
+//middleware to verify user using jwt token
 
 export default app;
