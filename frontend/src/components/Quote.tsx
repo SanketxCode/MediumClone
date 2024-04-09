@@ -2,10 +2,10 @@
 export const Quote = () => {
 
     return <>
-        <div className="bg-slate-200 h-screen flex justify-center flex-col ">
+        <div className=" h-screen flex justify-center flex-col bg-backg2">
             <div className=" flex justify-center">
                 <div className="">
-                    <div className="max-w-wd text-center font-bold text-3xl">
+                    <div className="max-w-wd text-center font-bold text-3xl hover:drop-shadow-xx m-4">
                        " Programming is the art of telling another human being what one wants the computer to do."
                     </div>
                     <div className="max-w-wd text-center text-slate-500 mt-3">
