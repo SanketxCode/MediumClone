@@ -10,7 +10,7 @@ const app = new Hono<{
     SECRET: string;
   };
 }>();
-app.use("*", cors());
+app.use("/*", cors());
 app.route("/api/v1/user", userRouter);
 app.route("/api/v1/blog", blogRouter);
 //middleware to verify user using jwt token

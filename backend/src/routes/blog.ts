@@ -2,7 +2,10 @@ import { Hono } from "hono";
 import { verify } from "hono/jwt";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { createBloginput, updateBloginput } from "@sanket-777/medium-blog-common";
+import {
+  createBloginput,
+  updateBloginput,
+} from "@sanket-777/medium-blog-common";
 
 export const blogRouter = new Hono<{
   Bindings: {
@@ -41,15 +44,14 @@ blogRouter.post("/", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const {success} = createBloginput.safeParse(body);
+  const { success } = createBloginput.safeParse(body);
 
-  if(!success)
-    {
-        c.status(411);
-        return c.json({
-            error  :  " Wrong Inputs"
-        })
-    }
+  if (!success) {
+    c.status(411);
+    return c.json({
+      error: " Wrong Inputs",
+    });
+  }
   try {
     const blog = await prisma.blog.create({
       data: {
@@ -78,15 +80,14 @@ blogRouter.put("/", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const {success} = updateBloginput.safeParse(body);
+  const { success } = updateBloginput.safeParse(body);
 
-  if(!success)
-    {
-        c.status(411);
-        return c.json({
-            error  :  " Wrong Inputs"
-        })
-    }
+  if (!success) {
+    c.status(411);
+    return c.json({
+      error: " Wrong Inputs",
+    });
+  }
   try {
     const blog = await prisma.blog.update({
       where: {
@@ -115,7 +116,16 @@ blogRouter.get("/bulk", async (c) => {
   }).$extends(withAccelerate());
 
   try {
-    const blogs = await prisma.blog.findMany();
+    const blogs = await prisma.blog.findMany({
+      select: {
+        title: true,
+        content: true,
+        id: true,
+        author: {
+          select: { name: true },
+        },
+      },
+    });
 
     console.log(blogs);
 
