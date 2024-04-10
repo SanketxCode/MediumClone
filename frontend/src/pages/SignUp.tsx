@@ -4,8 +4,8 @@ export const Signup = () => {
     return <>
         <div className="lg:grid grid-cols-2">
             <SignUpbox />
-            <div className="visible lg:visible">
-            <Quote />
+            <div className="hidden lg:block">
+                <Quote />
             </div>
         </div>
     </>

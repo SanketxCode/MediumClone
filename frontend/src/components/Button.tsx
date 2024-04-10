@@ -1,11 +1,12 @@
 interface Props {
-    label: string
+    label: string,
+    handleclick : () => void
 }
-export const Button = ({ label }: Props) => {
+export const Button = ({ label, handleclick }: Props) => {
 
     return (
         <>
-            <button type="button" className="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-200 ease-in-out transform-gpu active:scale-95 mt-1 ">{label}</button>
+            <button type="button" onClick={handleclick} className="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-200 ease-in-out transform-gpu active:scale-95 ">{label}</button>
         </>
     )
 }

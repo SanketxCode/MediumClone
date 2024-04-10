@@ -1,18 +1,37 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { InputBox } from "./InputBox"
 import { Button } from "./Button"
 import { useState } from "react"
-
+import { signIninput } from "@sanket-777/medium-blog-common"
+import axios from "axios"
+import { BACKEND_URL } from "../config"
 export const SignInbox = () => {
 
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    return <>
+    const [postInputs, setPostinputs] = useState<signIninput>({
+        username: "",
+        password: ""
+    })
+    async function handleclick() {
+        try {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, postInputs);
+            const jwt = response.data;
+            localStorage.setItem("token", jwt)
+            alert(response.data)
+            navigate("/blog");
+        }
+        catch (error) {
+            console.log(error);
 
+        }
+    }
+    return <>
         <div className=" h-screen flex justify-center flex-col bg-backg items-center  ">
-            <div className="text-4xl font-extrabold text-center ">
+            <div className="text-4xl font-extrabold text-center font-serif ">
                 Welcome Back to Medium
             </div>
-            <div className=" p-6  mt-4 rounded-lg  bg-white shadow-2xl">
+            <div className=" px-6 py-4 p mt-4 rounded-lg  bg-white shadow-2xl">
                 <div className="flex justify-center text-center">
                     <div className="  ">
 
@@ -27,11 +46,17 @@ export const SignInbox = () => {
                         </div>
 
                         <InputBox label="Email" type="text" placeholder="Enter email here" onChange={(e) => {
-
+                            setPostinputs(c => ({
+                                ...c,
+                                username: e.target.value
+                            }))
                         }} />
 
                         <InputBox label="Password" type={showPassword ? "text" : "password"} placeholder="Enter password here" onChange={(e) => {
-
+                            setPostinputs(c => ({
+                                ...c,
+                                password: e.target.value
+                            }))
                         }} />
 
                         <div className="flex items-center mb-4">
@@ -39,7 +64,7 @@ export const SignInbox = () => {
                             <label htmlFor="default-checkbox" className="mt-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Show Password </label>
                         </div>
 
-                        <Button label="Sign In" />
+                        <Button label="Sign In" handleclick={handleclick} />
                     </div>
                 </div>
 
