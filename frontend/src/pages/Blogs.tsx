@@ -1,20 +1,45 @@
-import { Blog } from "../components/Blog"
+import { useBlogs } from "../Hooks/useBlogs"
+import { AppBar } from "../components/AppBar"
+import { AppBarSkeleton } from "../components/AppBarSkeletion"
+import { BlogCard } from "../components/BlogCard"
+import { BlogSkeleton } from "../components/BlogSkeletion"
+
 
 export const Blogs = () => {
+    const { loading, blogs } = useBlogs()
+    console.log("we ahre here");
 
-    return (<>
+    if (loading) {
+        return (<>
+            <AppBarSkeleton />
+            <div className=" flex flex-col justify-center">
+
+                <div>
+                    <BlogSkeleton />
+                    <BlogSkeleton />
+                    <BlogSkeleton />
+                    <BlogSkeleton />
+
+                </div>
+            </div>
+        </>)
+    }
+    return (<><div>
+        <AppBar />
         <div className=" flex justify-center">
 
             <div className=" max-w-md">
-                <Blog authorname={"Sanket Kumbhar"} title="This is my firdt blog" content=" this is the content of the test blogthis is the content of the test this is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test
-             the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test" publishedDate={"22nd Feb"} />
-                <Blog authorname={"Sanket Kumbhar"} title="This is my firdt blog" content=" this is the content of the test blogthis is the content of the test this is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test
-             the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test" publishedDate={"22nd Feb"} />
-                <Blog authorname={"Sanket Kumbhar"} title="This is my firdt blog" content=" this is the content of the test blogthis is the content of the test this is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test
-             the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test" publishedDate={"22nd Feb"} />
-                <Blog authorname={"Sanket Kumbhar"} title="This is my firdt blog" content=" this is the content of the test blogthis is the content of the test this is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test
-             the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the testthis is the content of the test" publishedDate={"22nd Feb"} />
+                {
+                    blogs.map(bg => <BlogCard key={bg.id}
+                        authorname={bg.author.name || "Anonympus"}
+                        title={bg.title}
+                        content={bg.content}
+                        publishedDate={"22nd Feb"} />)
+                }
+
+
             </div>
         </div>
+    </div>
     </>)
 }

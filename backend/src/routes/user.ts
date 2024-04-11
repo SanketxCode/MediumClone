@@ -91,6 +91,7 @@ userRouter.post("/signin", async (c) => {
     //returning the token to user
     return c.json({
       jwt: token,
+      id :user.id
     });
   } catch (error) {
     c.status(411);

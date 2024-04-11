@@ -16,10 +16,11 @@ export const SignInbox = () => {
     async function handleclick() {
         try {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, postInputs);
-            const jwt = response.data;
+            const jwt = "Bearer " + response.data.jwt;
             localStorage.setItem("token", jwt)
-            alert(response.data)
-            navigate("/blog");
+            localStorage.setItem("id", response.data.id)
+            alert(response.data.jwt)
+            navigate("/blogs");
         }
         catch (error) {
             console.log(error);
