@@ -2,6 +2,7 @@ import { BlogInput } from "../Hooks/useBlogs"
 import { AppBar } from "./AppBar";
 import { Avatar } from "./BlogCard";
 
+
 export const SingleBlog = ({ blog }: { blog: BlogInput }) => {
 
     console.log(blog);
@@ -25,22 +26,22 @@ export const SingleBlog = ({ blog }: { blog: BlogInput }) => {
                     </div>
                     <div className="border-l col-span-3 p-2">
                         <div className="text-slate-500">
-                        Author
+                            Author
                         </div>
                         <div className="flex w-full">
 
-                        <div className=" pr-4 flex flex-col justify-center">
-                                <Avatar size="big" authorname={blog.author.name}/>
-                        </div>
-                        <div>
-                            <div className="text-xl font-bold">     
-                                {blog.author.name}
+                            <div className=" pr-4 flex flex-col justify-center">
+                                <Avatar size="big" authorname={blog.author.name} />
                             </div>
-                            <div className="pt-2 text-slate-500">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi fugiat eum dolor facere quibusdam, 
+                            <div>
+                                <div className="text-xl font-bold">
+                                    {blog.author.name}
+                                </div>
+                                <div className="pt-2 text-slate-500">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi fugiat eum dolor facere quibusdam,
+                                </div>
                             </div>
-                        </div>
-                      
+
                         </div>
                     </div>
                 </div>

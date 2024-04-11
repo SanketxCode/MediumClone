@@ -14,7 +14,14 @@ export interface BlogInput {
 export const useBlog = ({ id }: { id: string }) => {
 
     const [loading, setloading] = useState(true);
-    const [blog, setBlog] = useState<BlogInput>();
+    const [blog, setBlog] = useState<BlogInput>({
+        title: "",
+        content: "",
+        id: "",
+        author: {
+            name: "",
+        },
+    });
 
     useEffect(() => {
 
@@ -27,11 +34,11 @@ export const useBlog = ({ id }: { id: string }) => {
             .then(response => {
                 console.log("Data Has been recieved !");
                 console.log(response.data + "single blog");
-
-                setBlog(response.data.blog)
                 setloading(false);
+                setBlog(response.data.blog)
             })
-    }, [])
+    }, [id]);
+
     return {
         loading, blog
     }
