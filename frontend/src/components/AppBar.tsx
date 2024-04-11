@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom"
 import { Avatar } from "./BlogCard"
 import { Button } from "./Button"
 
-export const AppBar = () => {
+export const AppBar = ({ label }: { label: string }) => {
 
+    console.log(label);
+    
     const navigate = useNavigate();
     return (<>
 
@@ -16,9 +18,11 @@ export const AppBar = () => {
             </Link>
 
             <div className="flex flex-cols  items-center  ">
-                <div className="mr-4">
-                    <Button label="New Blog" handleclick={() => navigate('/publish')} />
-                </div>
+                {label !="" &&
+                    <div className="mr-4">
+                        <Button label={label} handleclick={() => navigate('/publish')} />
+                    </div>}
+
                 <Avatar size="" authorname="Sanket"></Avatar>
             </div>
         </div>

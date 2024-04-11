@@ -7,7 +7,7 @@ import { BlogSkeleton } from "../components/BlogSkeletion"
 
 export const Blogs = () => {
     const { loading, blogs } = useBlogs()
-    console.log("we ahre here");
+    
 
     if (loading) {
         return (<>
@@ -25,7 +25,7 @@ export const Blogs = () => {
         </>)
     }
     return (<><div>
-        <AppBar />
+        <AppBar label="New Blog" />
         <div className=" flex justify-center">
 
             <div className=" max-w-md">
@@ -34,7 +34,9 @@ export const Blogs = () => {
                         authorname={bg.author.name || "Anonympus"}
                         title={bg.title}
                         content={bg.content}
-                        publishedDate={"22nd Feb"} />)
+                        publishedDate={"22nd Feb"}
+                        id={bg.id}
+                        />)
                 }
 
 

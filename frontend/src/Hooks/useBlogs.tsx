@@ -3,11 +3,13 @@ import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../config";
 
 export interface BlogInput {
+    "authorId": string;
     "title": string;
     "content": string;
     "id": string;
     "author": {
         "name": string;
+        "id": string
     }
 }
 
@@ -18,8 +20,10 @@ export const useBlog = ({ id }: { id: string }) => {
         title: "",
         content: "",
         id: "",
+        authorId: "",
         author: {
             name: "",
+            id: ""
         },
     });
 
@@ -32,8 +36,6 @@ export const useBlog = ({ id }: { id: string }) => {
             }
         })
             .then(response => {
-                console.log("Data Has been recieved !");
-                console.log(response.data + "single blog");
                 setloading(false);
                 setBlog(response.data.blog)
             })
@@ -50,7 +52,6 @@ export const useBlogs = () => {
 
     useEffect(() => {
 
-        console.log(localStorage.getItem("token"));
 
         axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
             headers: {
@@ -58,8 +59,6 @@ export const useBlogs = () => {
             }
         })
             .then(response => {
-                console.log("Data Has been recieved !");
-                console.log(response.data);
 
 
                 setBlogs(response.data.blogs)

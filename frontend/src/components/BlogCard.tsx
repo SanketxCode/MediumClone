@@ -1,14 +1,20 @@
+import { useNavigate } from "react-router-dom"
 
 interface BlogInputTypes {
     authorname: string,
     title: string,
     content: string,
-    publishedDate: string
+    publishedDate: string,
+    id: string
 }
-export const BlogCard = ({ authorname, title, content, publishedDate }: BlogInputTypes) => {
+export const BlogCard = ({ authorname, title, content, publishedDate, id }: BlogInputTypes) => {
+    const navigate = useNavigate();
+    function handleclick() {
+        navigate(`/blog/${id}`);
+    }
     return (
         <>
-            <div className=" p-4 border-b ">
+            <div className=" p-4 border-b cursor-pointer " onClick={handleclick}>
 
                 <div className=" flex items-center">
 
@@ -25,8 +31,8 @@ export const BlogCard = ({ authorname, title, content, publishedDate }: BlogInpu
                 <div className="font-bold  text-xl">
                     {title}
                 </div>
-                <div className=" text-sm 	 ">
-                    {content.substring(0, 100) + "...."}
+                <div className=" text-sm">
+                    {content.substring(0, 200) + "...."}
                 </div>
                 <div className="m-1 text-sm  bg-slate-50 w-fit rounded-lg p-1">
                     {`${Math.ceil(content.length / 100)}`} minutes read

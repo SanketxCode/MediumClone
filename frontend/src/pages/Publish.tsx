@@ -13,7 +13,7 @@ export const Publish = () => {
     return (<>
 
         <div>
-            <AppBar />
+            <AppBar label="" />
             <div className=" flex lg:flex-row flex-col  justify-center items-center m-3 p-2  ">
                 <div className="max-w-screen-lg w-full   items-center m-2 " >
                     <div className=" max-w-screen-lg p-2  w-full items-center">
