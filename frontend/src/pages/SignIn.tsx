@@ -1,6 +1,5 @@
 import { SignInbox } from "../components/SignInBox"
 import { Quote } from "../components/Quote"
-import { Spinner } from "../components/Spinner"
 export const Signin = () => {
 
     return <>
