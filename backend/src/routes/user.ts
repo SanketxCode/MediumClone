@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { sign, verify } from "hono/jwt";
+import { sign } from "hono/jwt";
 import { signUpinput,signIninput } from "@sanket-777/medium-blog-common";
 export const userRouter = new Hono<{
   Bindings: {
@@ -37,6 +37,7 @@ userRouter.post("/signup", async (c) => {
     
     const token = await sign({ id: user.id }, c.env?.SECRET);
 
+  
     //returning the token to user
     return c.json({
     message : "User created Sucessfully !",

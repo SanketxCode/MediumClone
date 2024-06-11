@@ -37,9 +37,11 @@ export const SignUpbox = () => {
     async function sendRequest() {
         try {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, postInputs);
-            const jwt = response.data;
+            const jwt = "Bearer " + response.data.jwt;
             localStorage.setItem("token", jwt)
-            alert(response.data.message)
+
+            alert(jwt)
+            // alert(response.data.message)
             navigate("/signin");
         }
         catch (error) {
