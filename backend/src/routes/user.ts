@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { sign } from "hono/jwt";
-import { signUpinput,signIninput } from "@sanket-777/medium-blog-common";
+import { signUpinput, signIninput } from "@sanket-777/medium-blog-common";
 export const userRouter = new Hono<{
   Bindings: {
     DATABASE_URL: string;
@@ -16,15 +16,14 @@ userRouter.post("/signup", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-  const {success} = signUpinput.safeParse(body);
+  const { success } = signUpinput.safeParse(body);
 
-  if(!success)
-    {
-        c.status(411);
-        return c.json({
-            error  :  " Wrong Inputs"
-        })
-    }
+  if (!success) {
+    c.status(411);
+    return c.json({
+      error: " Wrong Inputs",
+    });
+  }
 
   try {
     const user = await prisma.user.create({
@@ -34,17 +33,18 @@ userRouter.post("/signup", async (c) => {
         name: body.name,
       },
     });
-    
+
     const token = await sign({ id: user.id }, c.env?.SECRET);
 
-  
     //returning the token to user
     return c.json({
-    message : "User created Sucessfully !",
+      message: "User created Sucessfully !",
       jwt: token,
     });
   } catch (error) {
     c.status(403);
+    console.log(error);
+
     return c.json({
       error: "User with same email already Exists !",
     });
@@ -59,15 +59,14 @@ userRouter.post("/signin", async (c) => {
 
   const body = await c.req.json();
 
-  const {success} = signIninput.safeParse(body);
+  const { success } = signIninput.safeParse(body);
 
-  if(!success)
-    {
-        c.status(411);
-        return c.json({
-            error  :  " Wrong Inputs"
-        })
-    }
+  if (!success) {
+    c.status(411);
+    return c.json({
+      error: " Wrong Inputs",
+    });
+  }
   // finding the user in the db
   try {
     const user = await prisma.user.findUnique({
@@ -92,7 +91,7 @@ userRouter.post("/signin", async (c) => {
     //returning the token to user
     return c.json({
       jwt: token,
-      id :user.id
+      id: user.id,
     });
   } catch (error) {
     c.status(411);
