@@ -1,82 +1,111 @@
-import { Link, useNavigate } from "react-router-dom"
-import { InputBox } from "./InputBox"
-import { Button } from "./Button"
-import { useState } from "react"
-import { signIninput } from "@sanket-777/medium-blog-common"
-import axios from "axios"
-import { BACKEND_URL } from "../config"
-import { Spinner } from "./Spinner"
+import { Link, useNavigate } from "react-router-dom";
+import { InputBox } from "./InputBox";
+import { Button } from "./Button";
+import { useState } from "react";
+import { signIninput } from "@sanket-777/medium-blog-common";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Spinner } from "./Spinner";
+
 export const SignInbox = () => {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const [loading, setloading] = useState(false);
-    const [postInputs, setPostinputs] = useState<signIninput>({
-        username: "",
-        password: ""
-    })
-    async function handleclick() {
-        try {
-            setloading(true);
-            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, postInputs);
-            const jwt = "Bearer " + response.data.jwt;
-            localStorage.setItem("token", jwt)
-            localStorage.setItem("id", response.data.id)
-            setloading(false);
-            navigate("/blogs");
-        }
-        catch (error) {
-            console.log(error);
+  const [postInputs, setPostInputs] = useState<signIninput>({
+    username: "",
+    password: "",
+  });
 
-        }
+  const handleClick = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, postInputs);
+      const jwt = "Bearer " + response.data.jwt;
+      localStorage.setItem("token", jwt);
+      localStorage.setItem("id", response.data.id);
+      toast.success("Sign-in successful!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setLoading(false);
+      navigate("/blogs");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
+  };
 
-    return <>
-
-        {loading && <Spinner />}
-            <div className=" h-screen flex justify-center flex-col bg-backg items-center  ">
-                <div className="text-4xl font-extrabold text-center font-serif ">
-                    Welcome Back to Medium
-                </div>
-                <div className=" px-6 py-4 p mt-4 rounded-lg  bg-white shadow-2xl">
-                    <div className="flex justify-center text-center">
-                        <div className="  ">
-
-                            <div className="text-3xl font-extrabold ">
-                                Login
-                            </div>
-                            <div className="text-slate-400">
-                                Don't have an account ?
-                                <Link className="underline pl-2" to={'/signup'}>
-                                    Signup
-                                </Link>
-                            </div>
-
-                            <InputBox label="Email" type="text" placeholder="Enter email here" onChange={(e) => {
-                                setPostinputs(c => ({
-                                    ...c,
-                                    username: e.target.value
-                                }))
-                            }} />
-
-                            <InputBox label="Password" type={showPassword ? "text" : "password"} placeholder="Enter password here" onChange={(e) => {
-                                setPostinputs(c => ({
-                                    ...c,
-                                    password: e.target.value
-                                }))
-                            }} />
-
-                            <div className="flex items-center mb-4">
-                                <input id="default-checkbox" onChange={(e) => setShowPassword(e.target.checked)} type="checkbox" value="" className="mt-4 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-md focus:ring-blue-500  dark:bg-gray-700 dark:border-gray-600" />
-                                <label htmlFor="default-checkbox" className="mt-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Show Password </label>
-                            </div>
-
-                            <Button label="Sign In" handleclick={handleclick} />
-                        </div>
-                    </div>
-
-                </div>
+  return (
+    <>
+      {loading && <Spinner />}
+      <div className="flex justify-center items-center h-screen ">
+        <div className="w-full max-w-md bg-white shadow-2xl p-8 rounded-lg">
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-800">Welcome Back</h1>
+            <div className="flex justify-center mb-2">
+              <div className="w-16 h-1 bg-gray-800 mr-2"></div>
+              <div className="w-16 h-1 bg-gray-400 ml-2"></div>
             </div>
-
+            <p className="text-gray-600">
+              Sign in to your account and start exploring.
+            </p>
+          </div>
+          <p className="text-gray-600 text-center mb-4">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-gray-800 underline font-bold">
+              Sign up
+            </Link>
+          </p>
+          <div className="bg-white  rounded-lg p-6">
+            <InputBox
+              label="Email"
+              type="email"
+              placeholder="Enter email"
+              onChange={(e) =>
+                setPostInputs((prevInputs) => ({
+                  ...prevInputs,
+                  username: e.target.value,
+                }))
+              }
+            />
+            <InputBox
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter password"
+              onChange={(e) =>
+                setPostInputs((prevInputs) => ({
+                  ...prevInputs,
+                  password: e.target.value,
+                }))
+              }
+            />
+            <div className="flex items-center mb-4 mt-4">
+              <input
+                id="showPassword"
+                type="checkbox"
+                className="mr-2 h-4 w-4 text-gray-800 focus:ring-gray-800 border-gray-300 rounded"
+                onChange={(e) => setShowPassword(e.target.checked)}
+              />
+              <label htmlFor="showPassword" className="text-sm text-gray-700">
+                Show Password
+              </label>
+            </div>
+            <div className="flex justify-center">
+              <Button label="Sign In" handleclick={handleClick} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <ToastContainer />
     </>
-}
+  );
+};
