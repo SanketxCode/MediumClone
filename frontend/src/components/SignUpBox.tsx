@@ -62,7 +62,7 @@ export const SignUpbox = () => {
 
     return (<>
         {loading && <Spinner />}
-        <div className="h-screen flex justify-center items-center ">
+        <div className="h-screen flex justify-center items-center  ">
             <div className="w-full max-w-md bg-white rounded-lg shadow-2xl p-6">
                 <div className="flex flex-col items-center justify-center text-center">
                     <h2 className="text-4xl font-bold mb-6 text-gray-800">
@@ -133,7 +133,7 @@ export const SignUpbox = () => {
                 </div>
 
             </div>
-        </div>
         <ToastContainer/>
+        </div>
     </>);
 }

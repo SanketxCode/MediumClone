@@ -14,9 +14,9 @@ export const Signup = () => {
 
     return (
         <>
-    <div className="lg:grid grid-cols-2 ">
+            <div className="lg:grid grid-cols-2">
                 <SignUpbox />
-                <div className="hidden lg:block m-auto">
+                <div className="hidden lg:block m-auto ">
                     <Lottie options={defaultOptions} height={400} width={400} />
                 </div>
             </div>
