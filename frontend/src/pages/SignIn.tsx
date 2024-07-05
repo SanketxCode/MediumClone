@@ -1,5 +1,4 @@
 import { SignInbox } from "../components/SignInBox"
-import { Quote } from "../components/Quote"
 import Lottie from 'react-lottie';
 import animationData from '../animations/signinanimation.json';
 export const Signin = () => {
