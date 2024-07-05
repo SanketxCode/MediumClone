@@ -1,8 +1,6 @@
-import { Quote } from "../components/Quote";
 import { SignUpbox } from "../components/SignUpBox";
 import Lottie from 'react-lottie';
 import animationData from '../animations/signupanimation.json';
-import { ToastContainer } from "react-toastify";
 
 export const Signup = () => {
     const defaultOptions = {
