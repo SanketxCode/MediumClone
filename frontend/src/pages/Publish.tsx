@@ -13,6 +13,7 @@ export const Publish = () => {
     return (<>
 
         <div>
+            
             <AppBar label="" />
             <div className=" flex lg:flex-row flex-col  justify-center items-center m-3 p-2  ">
                 <div className="max-w-screen-lg w-full   items-center m-2 " >
@@ -33,6 +34,7 @@ export const Publish = () => {
                         const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
                             title: title,
                             content: description,
+                            date : new Date(),
                             authorId: localStorage.getItem("id")
                         }, {
                             headers: {

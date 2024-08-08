@@ -5,7 +5,14 @@ import { Avatar } from "./BlogCard";
 export const SingleBlog = ({ blog }: { blog: BlogInput }) => {
 
 
-
+    const formattedDate = new Date(blog.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+ 
+    console.log(blog.authorId+"Authorid")
+    console.log(blog.author.id+"Authorid")
 
     return (<>
         <div>
@@ -18,7 +25,7 @@ export const SingleBlog = ({ blog }: { blog: BlogInput }) => {
                             {blog.title}
                         </div>
                         <div className="text-slate-500 pt-2">
-                            Posted on 2nd December
+                            {formattedDate}
                         </div>
                         <div className="pt-4">
                             {blog.content}

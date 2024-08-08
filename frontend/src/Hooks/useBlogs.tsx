@@ -6,6 +6,7 @@ export interface BlogInput {
     "authorId": string;
     "title": string;
     "content": string;
+    "date": Date;
     "id": string;
     "author": {
         "name": string;
@@ -19,6 +20,7 @@ export const useBlog = ({ id }: { id: string }) => {
     const [blog, setBlog] = useState<BlogInput>({
         title: "",
         content: "",
+        date: new Date(),
         id: "",
         authorId: "",
         author: {

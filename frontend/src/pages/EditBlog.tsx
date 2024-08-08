@@ -1,6 +1,15 @@
+// import { useParams } from "react-router-dom";
+// import { useBlog } from "../Hooks/useBlogs";
+// import axios from "axios";
+// import { AppBar } from "../components/AppBar";
+// import { Button } from "../components/Button";
+// import { BACKEND_URL } from "../config";
+// import { useState } from "react";
+
 // export const EditBlog = () => {
 //     const { id: string } = useParams();
 //     const { loading, blog } = useBlog({ id: string || " " });
+//     const [setTitle,title] = useState("");
 //     return (<>
 //         <div>
 //             <AppBar label="" />

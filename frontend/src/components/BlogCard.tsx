@@ -4,10 +4,16 @@ interface BlogInputTypes {
     authorname: string,
     title: string,
     content: string,
-    publishedDate: string,
+    publishedDate: Date,
     id: string
 }
 export const BlogCard = ({ authorname, title, content, publishedDate, id }: BlogInputTypes) => {
+
+    console.log(publishedDate + "Date")
+    const formattedDate = new Date(publishedDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long'
+    });
     const navigate = useNavigate();
     function handleclick() {
         navigate(`/blog/${id}`);
@@ -24,7 +30,7 @@ export const BlogCard = ({ authorname, title, content, publishedDate, id }: Blog
                     </div>
                     <Dot />
                     <div className=" text-slate-300 font-extralight text-sm">
-                        {publishedDate}
+                        {formattedDate}
                     </div>
                 </div>
 

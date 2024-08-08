@@ -5,7 +5,7 @@ import { Button } from "./Button"
 export const AppBar = ({ label }: { label: string }) => {
 
     console.log(label);
-    
+
     const navigate = useNavigate();
     return (<>
 
@@ -18,9 +18,14 @@ export const AppBar = ({ label }: { label: string }) => {
             </Link>
 
             <div className="flex flex-cols  items-center  ">
-                {label !="" &&
-                    <div className="mr-4">
+                {label != "" &&
+
+                    <div className=" flex mr-4">
+
                         <Button label={label} handleclick={() => navigate('/publish')} />
+
+                        <Button label={"Logout"} handleclick={() => navigate('/signin')} />
+
                     </div>}
 
                 <Avatar size="" authorname="Sanket"></Avatar>

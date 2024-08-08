@@ -7,7 +7,7 @@ import { BlogSkeleton } from "../components/BlogSkeletion"
 
 export const Blogs = () => {
     const { loading, blogs } = useBlogs()
-    
+    console.log(blogs)
 
     if (loading) {
         return (<>
@@ -31,10 +31,10 @@ export const Blogs = () => {
             <div className=" max-w-md">
                 {
                     blogs.map(bg => <BlogCard key={bg.id}
-                        authorname={bg.author.name || "Anonympus"}
+                        authorname={bg.author.name || "Anonymous"}
                         title={bg.title}
                         content={bg.content}
-                        publishedDate={"22nd Feb"}
+                        publishedDate={bg.date}
                         id={bg.id}
                         />)
                 }
