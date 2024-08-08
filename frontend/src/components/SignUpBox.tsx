@@ -51,7 +51,7 @@ export const SignUpbox = () => {
                 setloading(false)
                 navigate("/signin");
             }, 3000);
-            
+
         } catch (error) {
             console.log(error);
             setloading(false)
@@ -62,8 +62,8 @@ export const SignUpbox = () => {
 
     return (<>
         {loading && <Spinner />}
-        <div className="h-screen flex justify-center items-center  ">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-2xl p-6">
+        <div className="h-screen flex justify-center items-center ">
+            <div className=" w-fit  rounded-lg shadow-2xl p-6 m-4">
                 <div className="flex flex-col items-center justify-center text-center">
                     <h2 className="text-4xl font-bold mb-6 text-gray-800">
                         Join Our Community
@@ -133,7 +133,7 @@ export const SignUpbox = () => {
                 </div>
 
             </div>
-        <ToastContainer/>
+            <ToastContainer />
         </div>
     </>);
 }
