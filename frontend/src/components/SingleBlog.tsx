@@ -10,9 +10,11 @@ export const SingleBlog = ({ blog }: { blog: BlogInput }) => {
         month: 'long',
         day: 'numeric',
     });
- 
-    console.log(blog.authorId+"Authorid")
-    console.log(blog.author.id+"Authorid")
+
+    // console.log(blog.authorId+"Authorid")
+    // console.log(blog.author.id+"Authorid")
+    console.log(formattedDate + " date");
+
 
     return (<>
         <div>
