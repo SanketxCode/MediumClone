@@ -103,6 +103,8 @@ export const userRouter = new Hono<{
 //     });
 //   }
 // });
+console.log("DB URL exists:", !!c.env.DATABASE_URL);
+console.log("SECRET exists:", !!c.env.SECRET);
 
 userRouter.post("/auth/google", async (c) => {
   const prisma = new PrismaClient({
