@@ -108,12 +108,21 @@ userRouter.post("/auth/google", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  try {
-    const { credential } = await c.req.json();
-    const decodedToken = jwtDecode(credential);
-    console.log(credential);
 
-    const { email, name } = decodedToken;
+  try {
+    const body = await c.req.json();
+    console.log("BODY:", body);
+
+    if (!body.credential) {
+      return c.json({ error: "No credential received" }, 400);
+    }
+
+    const decodedToken = jwtDecode(body.credential);
+
+    const { email, name } = decodedToken as {
+      email: string;
+      name: string;
+    };
 
     let user = await prisma.user.findUnique({
       where: { email },
@@ -129,13 +138,16 @@ userRouter.post("/auth/google", async (c) => {
         },
       });
     }
-    const token = await sign({ id: user.id }, c.env?.SECRET);
 
-    return c.json({ message: "User logged in", jwt: token, id: user.id }, 200);
+    const token = await sign({ id: user.id }, c.env.SECRET);
+
+    return c.json(
+      { message: "User logged in", jwt: token, id: user.id },
+      200
+    );
   } catch (error) {
     console.error("Error during authentication:", error);
     return c.json({ message: "Internal server error" }, 500);
-  } finally {
-    await prisma.$disconnect();
   }
 });
+
